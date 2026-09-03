@@ -6,6 +6,14 @@ export function saveMasterPassword(password: string) {
   localStorage.setItem("masterPassword", password);
 }
 
+export function saveVaultOwnerName(name: string) {
+  localStorage.setItem("vaultOwnerName", name.trim());
+}
+
+export function getVaultOwnerName() {
+  return localStorage.getItem("vaultOwnerName") || "Vault Owner";
+}
+
 export function verifyMasterPassword(password: string) {
   const saved = localStorage.getItem("masterPassword");
   return saved === password;

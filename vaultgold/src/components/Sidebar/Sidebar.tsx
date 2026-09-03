@@ -6,6 +6,7 @@ import {
   FiSettings,
   FiLock as FiLockVault,
 } from "react-icons/fi";
+import { getVaultOwnerName } from "../../utils/masterPassword";
 
 interface SidebarProps {
   onNavigate?: () => void;
@@ -13,6 +14,7 @@ interface SidebarProps {
 
 export default function Sidebar({ onNavigate }: SidebarProps) {
   const navigate = useNavigate();
+  const ownerName = getVaultOwnerName();
 
   function lockVault() {
     sessionStorage.removeItem("vaultUnlocked");
@@ -44,12 +46,12 @@ export default function Sidebar({ onNavigate }: SidebarProps) {
         <div className="flex items-center gap-3">
 
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#D4AF37] text-lg font-bold text-white">
-            K
+              {ownerName.charAt(0).toUpperCase()}
           </div>
 
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-white">
-              Keanu
+              {ownerName}
             </h3>
 
             <p className="text-sm text-gray-500 dark:text-gray-400">

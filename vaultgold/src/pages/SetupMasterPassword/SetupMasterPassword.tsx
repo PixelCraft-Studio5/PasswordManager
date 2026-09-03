@@ -1,5 +1,5 @@
 import { useState, type KeyboardEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import {
   FiEye,
   FiEyeOff,
@@ -10,11 +10,14 @@ import {
 } from "react-icons/fi";
 
 import {
+  hasMasterPassword,
   saveMasterPassword,
+  saveVaultOwnerName,
   unlockVault,
 } from "../../utils/masterPassword";
 
 export default function SetupMasterPassword() {
+  const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
 
@@ -24,6 +27,10 @@ export default function SetupMasterPassword() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+
+  if (hasMasterPassword()) {
+    return <Navigate to="/lock" replace />;
+  }
 
   // Password requirements
   const hasMinLength = password.length >= 8;
@@ -47,6 +54,11 @@ export default function SetupMasterPassword() {
 
   function handleSetup() {
     setError("");
+
+    if (!fullName.trim()) {
+      setError("Please enter your full name.");
+      return;
+    }
 
     if (password.length < 8) {
       setError(
@@ -88,6 +100,7 @@ export default function SetupMasterPassword() {
       return;
     }
 
+    saveVaultOwnerName(fullName);
     saveMasterPassword(password);
     unlockVault();
 
@@ -144,6 +157,22 @@ export default function SetupMasterPassword() {
               something you can remember.
             </p>
 
+          </div>
+
+          <div className="mb-5">
+            <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-200">
+              Full Name
+            </label>
+            <input
+              type="text"
+              placeholder="Enter your full name"
+              value={fullName}
+              onChange={(e) => {
+                setFullName(e.target.value);
+                setError("");
+              }}
+              className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-4 text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder:text-gray-500"
+            />
           </div>
 
           {/* Master Password */}

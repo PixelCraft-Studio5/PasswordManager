@@ -27,6 +27,7 @@ export default function Settings() {
 
   function logout() {
     localStorage.removeItem("masterPassword");
+    localStorage.removeItem("vaultOwnerName");
     sessionStorage.removeItem("vaultUnlocked");
     navigate("/setup-master-password");
   }

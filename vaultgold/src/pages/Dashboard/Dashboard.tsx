@@ -19,8 +19,10 @@ import {
   importVault,
 } from "../../database/backupService";
 import { FaLock } from "react-icons/fa6";
+import { getVaultOwnerName } from "../../utils/masterPassword";
 
 export default function Dashboard() {
+  const ownerName = getVaultOwnerName();
   const [totalPasswords, setTotalPasswords] = useState(0);
   const [weakPasswords, setWeakPasswords] = useState(0);
   const [recentPasswords, setRecentPasswords] = useState<PasswordItem[]>([]);
@@ -78,7 +80,7 @@ export default function Dashboard() {
       {/* Page Header */}
       <PageHeader
         title="Dashboard"
-        subtitle="Welcome back to VaultGold."
+        subtitle={`Welcome back, ${ownerName}.`}
       />
 
       {/* Quick Actions */}

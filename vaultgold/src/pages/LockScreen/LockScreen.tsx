@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import {
   FiLock,
   FiEye,
@@ -8,6 +8,8 @@ import {
 } from "react-icons/fi";
 
 import {
+  getVaultOwnerName,
+  hasMasterPassword,
   verifyMasterPassword,
   unlockVault,
 } from "../../utils/masterPassword";
@@ -18,6 +20,11 @@ export default function LockScreen() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+  const ownerName = getVaultOwnerName();
+
+  if (!hasMasterPassword()) {
+    return <Navigate to="/setup-master-password" replace />;
+  }
 
   function unlock() {
     setError("");
@@ -55,10 +62,10 @@ export default function LockScreen() {
         <div className="mt-10 rounded-2xl bg-[#1f2b3c] p-4">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#D4AF37] text-lg font-bold">
-              K
+              {ownerName.charAt(0).toUpperCase()}
             </div>
             <div>
-              <h2 className="font-semibold text-white">Keanu</h2>
+              <h2 className="font-semibold text-white">{ownerName}</h2>
               <p className="text-sm text-gray-400">Vault Owner</p>
             </div>
           </div>
