@@ -14,7 +14,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 export const router = createBrowserRouter([
   {
     path: "/setup-master-password",
-    element: <SetupMasterPassword />,
+    element: <SetupMasterPassword />, 
   },
   {
     path: "/lock",
