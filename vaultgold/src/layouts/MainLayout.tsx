@@ -10,7 +10,7 @@ export default function MainLayout() {
       <button
         type="button"
         onClick={() => setSidebarOpen((open) => !open)}
-        className="fixed left-4 top-4 z-50 flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 shadow-md dark:border-gray-700 dark:bg-[#1f2b3c] dark:text-gray-200 md:hidden"
+        className="fixed right-4 top-4 z-50 flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 shadow-md dark:border-gray-700 dark:bg-[#1f2b3c] dark:text-gray-200 md:hidden"
         aria-label={sidebarOpen ? "Close menu" : "Open menu"}
         aria-expanded={sidebarOpen}
       >
