@@ -151,7 +151,7 @@ export default function LockScreen() {
           </div>
 
           <p className="mt-6 text-center text-xs text-gray-600">
-            VaultGold - Secure Password Management
+            Made by PixelCraft
           </p>
         </div>
       </main>

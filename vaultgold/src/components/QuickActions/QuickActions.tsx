@@ -42,12 +42,12 @@ export default function QuickActions() {
   ];
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-4">
       {actions.map((action) => (
         <button
           key={action.title}
           onClick={() => action.action ? action.action() : navigate(action.path)}
-          className={`${action.color} flex flex-col items-center justify-center rounded-3xl p-6 text-white shadow transition hover:scale-105`}
+          className={`${action.color} flex min-h-[140px] flex-col items-center justify-center rounded-3xl p-5 text-white shadow transition hover:scale-[1.01]`}
         >
           {action.icon}
 

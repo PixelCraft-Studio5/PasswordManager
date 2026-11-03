@@ -7,12 +7,14 @@ import {
   FiRefreshCw,
   FiShield,
   FiSun,
+  FiTrash2,
   FiUpload,
 } from "react-icons/fi";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import GlassCard from "../../components/GlassCard/GlassCard";
 import { exportVault, importVault } from "../../database/backupService";
 import { useTheme } from "../../context/ThemeContext";
+import { db } from "../../database/db";
 
 export default function Settings() {
   const navigate = useNavigate();
@@ -26,6 +28,25 @@ export default function Settings() {
   }
 
   function logout() {
+    localStorage.removeItem("masterPassword");
+    localStorage.removeItem("vaultOwnerName");
+    sessionStorage.removeItem("vaultUnlocked");
+    navigate("/setup-master-password");
+  }
+
+  async function deleteAllWork() {
+    const confirmed = window.confirm(
+      "This will permanently delete your saved passwords and return you to the setup screen."
+    );
+
+    if (!confirmed) return;
+
+    try {
+      await db.delete();
+    } catch (error) {
+      console.warn("Could not delete IndexedDB vault database:", error);
+    }
+
     localStorage.removeItem("masterPassword");
     localStorage.removeItem("vaultOwnerName");
     sessionStorage.removeItem("vaultUnlocked");
@@ -83,6 +104,14 @@ export default function Settings() {
           >
             <FiRefreshCw size={18} />
             Reset Master Password
+          </button>
+
+          <button
+            onClick={deleteAllWork}
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-red-700 py-3 font-semibold text-white transition hover:bg-red-800"
+          >
+            <FiTrash2 size={18} />
+            Delete All Work & Start Over
           </button>
         </GlassCard>
 
